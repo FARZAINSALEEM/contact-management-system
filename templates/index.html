@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Manager</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Contact Management</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Contact Manager</h1>
-        <form action="/add" method="post">
+        <h1>Contact Management System</h1>
+        
+        <form action="/add" method="POST">
             <input type="text" name="name" placeholder="Enter Name" required>
             <input type="text" name="phone" placeholder="Enter Phone Number" required>
             <button type="submit">Add Contact</button>
         </form>
+        
         <ul>
             {% for contact in contacts %}
                 <li>
-                    <span>{{ contact.name }} - {{ contact.phone }}</span>
-                    <a href="/delete/{{ loop.index0 }}" class="delete">Delete</a>
+                    {{ contact[1] }} - {{ contact[2] }}
+                    <form action="/delete/{{ contact[0] }}" method="POST" style="display:inline;">
+                        <button class="delete" type="submit">Delete</button>
+                    </form>
                 </li>
             {% endfor %}
         </ul>

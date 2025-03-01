@@ -4,23 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Manager</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
         <h1>Contact Manager</h1>
-        <form action="/add" method="POST">
-            <input type="text" name="name" placeholder="Name" required>
-            <input type="text" name="phone" placeholder="Phone Number" required>
+        <form action="/add" method="post">
+            <input type="text" name="name" placeholder="Enter Name" required>
+            <input type="text" name="phone" placeholder="Enter Phone Number" required>
             <button type="submit">Add Contact</button>
         </form>
         <ul>
-            {% for name, phone in contacts.items() %}
+            {% for contact in contacts %}
                 <li>
-                    <span>{{ name }} - {{ phone }}</span>
-                    <form action="/delete/{{ name }}" method="POST" style="display:inline;">
-                        <button type="submit" class="delete">Delete</button>
-                    </form>
+                    <span>{{ contact.name }} - {{ contact.phone }}</span>
+                    <a href="/delete/{{ loop.index0 }}" class="delete">Delete</a>
                 </li>
             {% endfor %}
         </ul>
